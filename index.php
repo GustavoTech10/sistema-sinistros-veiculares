@@ -9,6 +9,17 @@ function sanitize($value) {
 
 $registerErrors = [];
 $registerSuccess = '';
+$editErrors = [];
+$editSuccess = '';
+$editOld = [
+    'id' => '',
+    'placa' => '',
+    'proprietario' => '',
+    'condutor' => '',
+    'cidade' => '',
+    'processo' => '',
+    'tipo_veiculo' => 'Moto',
+];
 $registerOld = [
     'placa' => '',
     'proprietario' => '',
@@ -86,6 +97,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_modal_cadastra
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_modal_editar'])) {
+    $editId = filter_input(INPUT_POST, 'veiculo_id', FILTER_VALIDATE_INT);
+    $placa = strtoupper(trim($_POST['placa'] ?? ''));
+    $proprietario = trim($_POST['proprietario'] ?? '');
+    $condutor = trim($_POST['condutor'] ?? '');
+    $cidade = trim($_POST['cidade'] ?? '');
+    $processo = trim($_POST['processo'] ?? '');
+    $tipoVeiculo = trim($_POST['tipo_veiculo'] ?? '');
+
+    $editOld = [
+        'id' => $editId ?: '',
+        'placa' => $placa,
+        'proprietario' => $proprietario,
+        'condutor' => $condutor,
+        'cidade' => $cidade,
+        'processo' => $processo,
+        'tipo_veiculo' => $tipoVeiculo,
+    ];
+
+    if (!$editId) {
+        $editErrors[] = 'Veiculo invalido para edicao.';
+    }
+    if (!preg_match('/^[A-Z]{3}-\d[A-Z]\d{2}$/', $placa)) {
+        $editErrors[] = 'A placa deve seguir o formato AAA-1A11.';
+    }
+    if (!$proprietario) {
+        $editErrors[] = 'O proprietario e obrigatorio.';
+    }
+    if (!$condutor) {
+        $editErrors[] = 'O condutor e obrigatorio.';
+    }
+    if (!$cidade) {
+        $editErrors[] = 'A cidade e obrigatoria.';
+    }
+    if (!in_array($processo, ['Roubo/Furto', 'ApropriaÃ§Ã£o IndÃ©bita', 'ApropriaÃƒÂ§ÃƒÂ£o IndÃƒÂ©bita', 'ColisÃ£o', 'ColisÃƒÂ£o', 'ColisÃ£o com terceiro', 'ColisÃƒÂ£o com terceiro', 'Em Compras'], true)) {
+        $editErrors[] = 'Processo invalido.';
+    }
+    if (!in_array($tipoVeiculo, ['Carro', 'Moto'], true)) {
+        $editErrors[] = 'Tipo de veiculo invalido.';
+    }
+
+    if ($editId) {
+        $stmt = $pdo->prepare('SELECT id FROM veiculos WHERE placa = ? AND id != ?');
+        $stmt->execute([$placa, $editId]);
+        if ($stmt->fetch()) {
+            $editErrors[] = 'Ja existe outro veiculo cadastrado com esta placa.';
+        }
+    }
+
+    if (empty($editErrors)) {
+        $update = $pdo->prepare('UPDATE veiculos SET placa = ?, proprietario = ?, condutor = ?, cidade = ?, processo = ?, tipo_veiculo = ? WHERE id = ?');
+        $update->execute([$placa, $proprietario, $condutor, $cidade, $processo, $tipoVeiculo, $editId]);
+        $editSuccess = 'Veiculo atualizado com sucesso.';
+        $editOld = [
+            'id' => '',
+            'placa' => '',
+            'proprietario' => '',
+            'condutor' => '',
+            'cidade' => '',
+            'processo' => '',
+            'tipo_veiculo' => 'Moto',
+        ];
+    }
+}
+
 $query = "SELECT v.*, s.status AS status_atual, s.data_hora AS status_data
           FROM veiculos v
           JOIN (
@@ -157,10 +233,6 @@ foreach ($veiculos as $veiculo) {
             <h2>Olá, Gustavo! <span>👋</span></h2>
             <p>Aqui está o resumo de hoje</p>
         </div>
-        <div class="date-chip">
-            <i class="fas fa-calendar-day"></i>
-            <strong><?php echo date('d/m/Y'); ?></strong>
-        </div>
     </div>
 
     <div class="summary-grid">
@@ -194,6 +266,12 @@ foreach ($veiculos as $veiculo) {
         <div class="registration-feedback success">
             <i class="fas fa-circle-check"></i>
             <span><?php echo sanitize($registerSuccess); ?></span>
+        </div>
+    <?php endif; ?>
+    <?php if ($editSuccess): ?>
+        <div class="registration-feedback success">
+            <i class="fas fa-circle-check"></i>
+            <span><?php echo sanitize($editSuccess); ?></span>
         </div>
     <?php endif; ?>
 
@@ -251,7 +329,18 @@ foreach ($veiculos as $veiculo) {
                     <small><i class="fas fa-location-dot"></i> <?php echo sanitize($veiculo['cidade']); ?></small>
                     <small><i class="fas fa-calendar-day"></i> <?php echo formatarDataHora($veiculo['status_data']); ?></small>
                     <div class="vehicle-actions">
-                        <a href="editar.php?id=<?php echo $veiculo['id']; ?>" title="Editar"><i class="fas fa-pen"></i><span>Editar</span></a>
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            data-id="<?php echo $veiculo['id']; ?>"
+                            data-placa="<?php echo sanitize($veiculo['placa']); ?>"
+                            data-proprietario="<?php echo sanitize($veiculo['proprietario']); ?>"
+                            data-condutor="<?php echo sanitize($veiculo['condutor']); ?>"
+                            data-cidade="<?php echo sanitize($veiculo['cidade']); ?>"
+                            data-processo="<?php echo sanitize($veiculo['processo']); ?>"
+                            data-tipo="<?php echo sanitize($veiculo['tipo_veiculo']); ?>"
+                            title="Editar"
+                        ><i class="fas fa-pen"></i><span>Editar</span></button>
                         <button type="button" class="status-btn" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Trocar status"><i class="fas fa-right-left"></i><span>Status</span></button>
                         <a href="historico.php?id=<?php echo $veiculo['id']; ?>" title="Histórico"><i class="fas fa-clock-rotate-left"></i><span>Historico</span></a>
                         <?php if ($veiculo['tipo_veiculo'] === 'Moto' && normalizarTexto($veiculo['status_atual']) === 'Em Oficina'): ?>
@@ -326,6 +415,71 @@ foreach ($veiculos as $veiculo) {
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" data-close="cadastroModalOverlay"><i class="fas fa-xmark"></i> Cancelar</button>
                 <button type="submit" name="submit_modal_cadastrar" class="btn btn-primary"><i class="fas fa-floppy-disk"></i> Salvar veiculo</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay<?php echo $editErrors ? ' modal-open' : ''; ?>" id="editarModalOverlay" aria-hidden="<?php echo $editErrors ? 'false' : 'true'; ?>">
+    <div class="modal-window register-modal" role="dialog" aria-modal="true" aria-labelledby="editarModalTitle">
+        <button type="button" class="modal-close" data-close="editarModalOverlay" title="Fechar"><i class="fas fa-times"></i></button>
+        <div class="modal-header register-header">
+            <span class="modal-badge edit-badge"><i class="fas fa-pen"></i></span>
+            <div>
+                <h2 id="editarModalTitle">Editar veiculo</h2>
+                <p>Atualize os dados do cadastro sem sair da lista principal.</p>
+            </div>
+        </div>
+
+        <?php if ($editErrors): ?>
+            <div class="alert alert-danger modal-alert">
+                <ul>
+                    <?php foreach ($editErrors as $error): ?>
+                        <li><?php echo sanitize($error); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
+        <form action="index.php" method="post" class="modal-form register-form" novalidate>
+            <input type="hidden" name="veiculo_id" id="editVeiculoId" value="<?php echo sanitize($editOld['id']); ?>" />
+            <label>
+                <span>Placa</span>
+                <input id="editPlacaInput" name="placa" type="text" maxlength="8" placeholder="AAA-1A11" value="<?php echo sanitize($editOld['placa']); ?>" required />
+            </label>
+            <label>
+                <span>Proprietario</span>
+                <input id="editProprietario" name="proprietario" type="text" maxlength="120" value="<?php echo sanitize($editOld['proprietario']); ?>" required />
+            </label>
+            <label>
+                <span>Condutor</span>
+                <input id="editCondutor" name="condutor" type="text" maxlength="120" value="<?php echo sanitize($editOld['condutor']); ?>" required />
+            </label>
+            <label>
+                <span>Cidade</span>
+                <input id="editCidade" name="cidade" type="text" maxlength="120" value="<?php echo sanitize($editOld['cidade']); ?>" required />
+            </label>
+            <label>
+                <span>Processo</span>
+                <select id="editProcesso" name="processo" required>
+                    <option value="">Selecione...</option>
+                    <option value="Roubo/Furto"<?php echo $editOld['processo'] === 'Roubo/Furto' ? ' selected' : ''; ?>>Roubo/Furto</option>
+                    <option value="ApropriaÃ§Ã£o IndÃ©bita"<?php echo $editOld['processo'] === 'ApropriaÃ§Ã£o IndÃ©bita' ? ' selected' : ''; ?>>Apropriacao Indebita</option>
+                    <option value="ColisÃ£o"<?php echo $editOld['processo'] === 'ColisÃ£o' ? ' selected' : ''; ?>>Colisao</option>
+                    <option value="ColisÃ£o com terceiro"<?php echo $editOld['processo'] === 'ColisÃ£o com terceiro' ? ' selected' : ''; ?>>Colisao com terceiro</option>
+                    <option value="Em Compras"<?php echo $editOld['processo'] === 'Em Compras' ? ' selected' : ''; ?>>Em Compras</option>
+                </select>
+            </label>
+            <label>
+                <span>Tipo de veiculo</span>
+                <select id="editTipoVeiculo" name="tipo_veiculo" required>
+                    <option value="Moto"<?php echo $editOld['tipo_veiculo'] === 'Moto' ? ' selected' : ''; ?>>Moto</option>
+                    <option value="Carro"<?php echo $editOld['tipo_veiculo'] === 'Carro' ? ' selected' : ''; ?>>Carro</option>
+                </select>
+            </label>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" data-close="editarModalOverlay"><i class="fas fa-xmark"></i> Cancelar</button>
+                <button type="submit" name="submit_modal_editar" class="btn btn-primary"><i class="fas fa-floppy-disk"></i> Atualizar veiculo</button>
             </div>
         </form>
     </div>

@@ -3,14 +3,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const vehiclesTable = document.getElementById('vehiclesTable');
     const vehiclesList = document.getElementById('vehiclesList');
     const cadastroModal = document.getElementById('cadastroModalOverlay');
+    const editarModal = document.getElementById('editarModalOverlay');
     const statusModal = document.getElementById('statusModalOverlay');
     const budgetModal = document.getElementById('budgetModalOverlay');
     const registerButtons = document.querySelectorAll('.open-register-modal');
+    const editButtons = document.querySelectorAll('.edit-btn');
     const statusButtons = document.querySelectorAll('.status-btn');
     const budgetButtons = document.querySelectorAll('.budget-btn');
     const deleteButtons = document.querySelectorAll('.delete-btn');
     const closeButtons = document.querySelectorAll('[data-close]');
     const placaInput = document.getElementById('placaInput');
+    const editPlacaInput = document.getElementById('editPlacaInput');
+    const editVeiculoId = document.getElementById('editVeiculoId');
+    const editProprietario = document.getElementById('editProprietario');
+    const editCondutor = document.getElementById('editCondutor');
+    const editCidade = document.getElementById('editCidade');
+    const editProcesso = document.getElementById('editProcesso');
+    const editTipoVeiculo = document.getElementById('editTipoVeiculo');
     const statusVeiculoId = document.getElementById('statusVeiculoId');
     const statusPlaca = document.getElementById('statusPlaca');
     const budgetVeiculoId = document.getElementById('budgetVeiculoId');
@@ -49,6 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    editButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            editVeiculoId.value = button.dataset.id || '';
+            editPlacaInput.value = button.dataset.placa || '';
+            editProprietario.value = button.dataset.proprietario || '';
+            editCondutor.value = button.dataset.condutor || '';
+            editCidade.value = button.dataset.cidade || '';
+            editProcesso.value = button.dataset.processo || '';
+            editTipoVeiculo.value = button.dataset.tipo || 'Moto';
+            openModal(editarModal);
+        });
+    });
+
     statusButtons.forEach(button => {
         button.addEventListener('click', () => {
             statusVeiculoId.value = button.dataset.id;
@@ -75,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    [cadastroModal, statusModal, budgetModal].forEach(modal => {
+    [cadastroModal, editarModal, statusModal, budgetModal].forEach(modal => {
         if (!modal) return;
         modal.addEventListener('click', (event) => {
             if (event.target === modal) closeModal(modal);
@@ -93,18 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (placaInput) {
-        placaInput.addEventListener('input', () => {
-            let value = placaInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const applyPlateMask = (input) => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            let value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
             if (value.length > 3) {
                 value = value.slice(0, 3) + '-' + value.slice(3);
             }
             if (value.length > 8) {
                 value = value.slice(0, 8);
             }
-            placaInput.value = value;
+            input.value = value;
         });
-    }
+    };
+
+    applyPlateMask(placaInput);
+    applyPlateMask(editPlacaInput);
 
     if (searchInput && vehiclesList) {
         searchInput.addEventListener('input', () => {
