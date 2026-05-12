@@ -1,0 +1,27 @@
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db
+.idea/
+
+# Configuracoes locais/sensiveis
+.env
+.env.*
+.vscode/sftp.json
+*.log
+
+# Backups temporarios
+*.bak
+*.tmp
+*.swp
+~$*
+
+# Dependencias e builds, caso sejam adicionados no futuro
+node_modules/
+vendor/
+dist/
+build/
+
+# Uploads e arquivos gerados em runtime
+uploads/
+storage/
+cache/

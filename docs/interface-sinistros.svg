@@ -1,0 +1,75 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="34" fill="#F7F9FD"/>
+  <rect x="330" y="34" width="540" height="692" rx="38" fill="#FFFFFF" stroke="#E7ECF5" stroke-width="2"/>
+  <rect x="354" y="58" width="492" height="644" rx="28" fill="#F7F9FD"/>
+
+  <circle cx="396" cy="106" r="16" fill="#090D24"/>
+  <rect x="446" y="82" width="48" height="48" rx="14" fill="#E7F0FF"/>
+  <path d="M470 93L486 101V118C486 126 479 132 470 136C461 132 454 126 454 118V101L470 93Z" stroke="#075BE8" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="462" y="109" width="27" height="16" rx="5" stroke="#075BE8" stroke-width="4"/>
+  <circle cx="469" cy="127" r="2.5" fill="#075BE8"/>
+  <circle cx="485" cy="127" r="2.5" fill="#075BE8"/>
+  <text x="512" y="106" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="800">Veículos Cadastrados</text>
+  <text x="512" y="132" fill="#657084" font-family="Poppins, Arial, sans-serif" font-size="15" font-weight="500">Painel de controle de sinistros veiculares</text>
+  <circle cx="803" cy="105" r="28" fill="#075BE8"/>
+  <path d="M803 103C808 103 811 99 811 94C811 89 808 86 803 86C798 86 795 89 795 94C795 99 798 103 803 103ZM790 123C792 113 797 109 803 109C809 109 814 113 816 123" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="824" cy="126" r="9" fill="#35C76C" stroke="white" stroke-width="4"/>
+
+  <text x="382" y="190" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="800">Olá, Gustavo!</text>
+  <text x="382" y="216" fill="#657084" font-family="Poppins, Arial, sans-serif" font-size="16" font-weight="500">Aqui está o resumo de hoje</text>
+  <rect x="685" y="170" width="135" height="52" rx="10" fill="white" stroke="#E7ECF5"/>
+  <text x="728" y="202" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="15" font-weight="800">12/05/2026</text>
+  <path d="M710 184V205M700 192H720M704 180V188M716 180V188" stroke="#075BE8" stroke-width="3" stroke-linecap="round"/>
+
+  <g>
+    <rect x="382" y="252" width="100" height="124" rx="12" fill="white" stroke="#E7ECF5"/>
+    <circle cx="432" cy="292" r="24" fill="#FFE8EC"/>
+    <text x="432" y="334" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="800">15</text>
+    <text x="432" y="360" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="14" font-weight="600">Roubadas</text>
+    <rect x="408" y="370" width="48" height="4" rx="2" fill="#EE1C35"/>
+  </g>
+  <g>
+    <rect x="502" y="252" width="100" height="124" rx="12" fill="white" stroke="#E7ECF5"/>
+    <circle cx="552" cy="292" r="24" fill="#FFF0DF"/>
+    <text x="552" y="334" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="800">8</text>
+    <text x="552" y="360" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="14" font-weight="600">Furtos</text>
+    <rect x="528" y="370" width="48" height="4" rx="2" fill="#FF7A16"/>
+  </g>
+  <g>
+    <rect x="622" y="252" width="100" height="124" rx="12" fill="white" stroke="#E7ECF5"/>
+    <circle cx="672" cy="292" r="24" fill="#F0EAFF"/>
+    <text x="672" y="334" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="800">3</text>
+    <text x="672" y="360" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="13" font-weight="600">Apropriação</text>
+    <rect x="648" y="370" width="48" height="4" rx="2" fill="#4B22DF"/>
+  </g>
+  <g>
+    <rect x="742" y="252" width="78" height="124" rx="12" fill="white" stroke="#E7ECF5"/>
+    <circle cx="781" cy="292" r="24" fill="#E3F8ED"/>
+    <text x="781" y="334" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="25" font-weight="800">4</text>
+    <text x="781" y="360" text-anchor="middle" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="12" font-weight="600">Recuperadas</text>
+    <rect x="762" y="370" width="38" height="4" rx="2" fill="#17A956"/>
+  </g>
+
+  <rect x="382" y="404" width="438" height="86" rx="12" fill="#075BE8"/>
+  <circle cx="424" cy="447" r="27" fill="#FFFFFF"/>
+  <text x="424" y="457" text-anchor="middle" fill="#075BE8" font-family="Arial" font-size="36">+</text>
+  <text x="468" y="438" fill="white" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="800">Cadastrar veículo</text>
+  <text x="468" y="466" fill="#DCE8FF" font-family="Poppins, Arial, sans-serif" font-size="16" font-weight="500">Adicionar novo veículo ao sistema</text>
+  <path d="M790 435L803 448L790 461" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="382" y="516" width="368" height="58" rx="12" fill="white" stroke="#E7ECF5"/>
+  <circle cx="414" cy="545" r="10" stroke="#657084" stroke-width="4"/>
+  <path d="M422 553L432 563" stroke="#657084" stroke-width="4" stroke-linecap="round"/>
+  <text x="450" y="552" fill="#657084" font-family="Poppins, Arial, sans-serif" font-size="16" font-weight="500">Buscar por placa, proprietário ou condutor</text>
+  <rect x="762" y="516" width="58" height="58" rx="12" fill="white" stroke="#E7ECF5"/>
+  <path d="M779 534H803L794 545V558L788 561V545L779 534Z" fill="#075BE8"/>
+
+  <text x="382" y="617" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="20" font-weight="800">Lista de veículos</text>
+  <rect x="382" y="638" width="438" height="64" rx="12" fill="white" stroke="#E7ECF5"/>
+  <rect x="404" y="652" width="48" height="38" rx="8" fill="#F8FAFF" stroke="#E7ECF5"/>
+  <rect x="415" y="663" width="26" height="16" rx="3" stroke="#075BE8" stroke-width="3"/>
+  <text x="476" y="664" fill="#090D24" font-family="Poppins, Arial, sans-serif" font-size="18" font-weight="800">SME-4D34</text>
+  <text x="476" y="686" fill="#657084" font-family="Poppins, Arial, sans-serif" font-size="13" font-weight="500">Proprietário: João da Silva</text>
+  <rect x="714" y="657" width="62" height="28" rx="14" fill="#FFE8EC"/>
+  <text x="745" y="676" text-anchor="middle" fill="#DC1630" font-family="Poppins, Arial, sans-serif" font-size="12" font-weight="800">ROUBO</text>
+</svg>
