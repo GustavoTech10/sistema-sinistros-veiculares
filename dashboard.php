@@ -69,7 +69,6 @@ $percentualAtrasados = $totalVeiculos > 0 ? round(($totalAtrasados / $totalVeicu
             <h2><i class="fas fa-gauge-high"></i> Visão geral dos sinistros</h2>
             <p>Acompanhe prazos, gargalos e entregas em uma tela mais limpa e objetiva.</p>
         </div>
-        <a href="cadastrar.php" class="btn"><i class="fas fa-plus"></i> Novo veículo</a>
     </div>
 
     <div class="dashboard-grid">
