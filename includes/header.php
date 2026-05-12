@@ -25,9 +25,6 @@ function navActive($file, $currentPage) {
     <div class="app-shell">
         <main class="main-content">
             <header class="app-header">
-                <button class="menu-button" type="button" aria-label="Abrir menu">
-                    <i class="fas fa-bars"></i>
-                </button>
                 <a class="brand-mark" href="index.php" aria-label="Inicio">
                     <i class="fas fa-shield-halved"></i>
                     <i class="fas fa-car-side"></i>
@@ -36,8 +33,22 @@ function navActive($file, $currentPage) {
                     <h1><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></h1>
                     <p>Painel de controle de sinistros veiculares</p>
                 </div>
-                <a class="profile-pill" href="index.php" aria-label="Perfil">
-                    <i class="fas fa-user"></i>
-                    <span></span>
-                </a>
+                <nav class="desktop-nav" aria-label="Navegacao principal">
+                    <a href="dashboard.php" class="<?php echo navActive('dashboard.php', $currentPage); ?>">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="index.php" class="<?php echo navActive('index.php', $currentPage); ?>">
+                        <i class="fas fa-car-side"></i>
+                        <span>Veiculos</span>
+                    </a>
+                    <a href="historico.php" class="<?php echo navActive('historico.php', $currentPage); ?>">
+                        <i class="fas fa-clock-rotate-left"></i>
+                        <span>Historico</span>
+                    </a>
+                </nav>
+                <div class="header-date">
+                    <i class="fas fa-calendar-day"></i>
+                    <strong><?php echo date('d/m/Y'); ?></strong>
+                </div>
             </header>

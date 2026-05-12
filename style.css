@@ -49,7 +49,7 @@ button {
 }
 
 .app-shell {
-    width: min(100%, 920px);
+    width: min(100%, 1240px);
     min-height: 100vh;
     margin: 0 auto;
     background:
@@ -59,32 +59,28 @@ button {
 
 .main-content {
     min-height: 100vh;
-    padding: 28px 22px 112px;
+    padding: 30px 28px 42px;
 }
 
 .app-header {
     display: grid;
-    grid-template-columns: 42px 68px minmax(0, 1fr) 58px;
+    grid-template-columns: 68px minmax(260px, 1fr) auto auto;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 34px;
+    gap: 18px;
+    margin-bottom: 28px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 12px 28px rgba(17, 24, 39, 0.05);
+    backdrop-filter: blur(12px);
 }
 
-.menu-button,
-.profile-pill,
-.filter-button,
 .vehicle-actions a,
 .vehicle-actions button,
 .modal-close {
     border: 0;
     background: transparent;
-}
-
-.menu-button {
-    width: 40px;
-    height: 40px;
-    color: #10152f;
-    font-size: 1.4rem;
 }
 
 .brand-mark {
@@ -121,27 +117,40 @@ button {
     color: var(--muted);
 }
 
-.profile-pill {
-    position: relative;
-    width: 58px;
-    height: 58px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: var(--primary);
-    color: #fff;
-    font-size: 1.35rem;
+.desktop-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.profile-pill span {
-    position: absolute;
-    right: 1px;
-    bottom: 5px;
-    width: 17px;
-    height: 17px;
-    border: 3px solid #fff;
-    border-radius: 50%;
-    background: #35c76c;
+.desktop-nav a,
+.header-date {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    color: #4d5870;
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.desktop-nav a.active {
+    border-color: #cfe0ff;
+    background: #eaf2ff;
+    color: var(--primary);
+}
+
+.header-date {
+    color: var(--text);
+}
+
+.header-date i {
+    color: var(--primary);
 }
 
 .home-screen,
@@ -149,6 +158,7 @@ button {
     display: grid;
     gap: 22px;
 }
+
 
 .hello-row,
 .section-header,
@@ -173,7 +183,7 @@ button {
 }
 
 .date-chip,
-.list-heading button {
+.list-heading span {
     min-height: 54px;
     display: inline-flex;
     align-items: center;
@@ -334,8 +344,7 @@ button {
 
 .search-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 76px;
-    gap: 12px;
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .search-box {
@@ -363,16 +372,6 @@ button {
     background: transparent;
 }
 
-.filter-button {
-    min-height: 72px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    color: var(--primary);
-    font-size: 1.45rem;
-    box-shadow: 0 8px 22px rgba(17, 24, 39, 0.04);
-}
-
 .list-heading {
     margin-top: 4px;
 }
@@ -384,24 +383,27 @@ button {
     font-size: 1.2rem;
 }
 
-.list-heading button {
+.list-heading span {
     min-height: 48px;
     border-radius: 999px;
     color: var(--primary);
     font-weight: 700;
     background: #eef4ff;
+    padding: 0 16px;
+    box-shadow: none;
 }
 
 .vehicle-list {
     display: grid;
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
 }
 
 .vehicle-card {
     display: grid;
-    grid-template-columns: 96px minmax(0, 1fr) 22px;
+    grid-template-columns: 82px minmax(0, 1fr);
     align-items: center;
-    gap: 18px;
+    gap: 16px;
     min-height: 132px;
     padding: 20px 22px;
     border: 1px solid var(--line);
@@ -411,8 +413,8 @@ button {
 }
 
 .plate-icon {
-    width: 78px;
-    height: 78px;
+    width: 68px;
+    height: 68px;
     display: grid;
     place-items: center;
     border: 1px solid var(--line);
@@ -429,6 +431,10 @@ button {
 .vehicle-topline strong {
     font-size: 1.25rem;
     letter-spacing: 0;
+}
+
+.vehicle-topline {
+    align-items: flex-start;
 }
 
 .vehicle-main p {
@@ -507,13 +513,17 @@ button {
 
 .vehicle-actions a,
 .vehicle-actions button {
-    width: 34px;
-    height: 34px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 10px;
+    border-radius: 999px;
     background: #eef4ff;
     color: var(--primary);
+    font-size: 0.76rem;
+    font-weight: 800;
 }
 
 .vehicle-actions .danger-action {
@@ -521,20 +531,15 @@ button {
     color: var(--danger);
 }
 
-.card-chevron {
-    color: #687386;
-    font-size: 1.35rem;
-}
-
 .bottom-nav {
     position: fixed;
     left: 50%;
     bottom: 0;
     z-index: 80;
-    width: min(100%, 920px);
+    width: min(100%, 1240px);
     transform: translateX(-50%);
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
     align-items: end;
     gap: 4px;
     min-height: 92px;
@@ -552,6 +557,8 @@ button {
     display: grid;
     justify-items: center;
     gap: 5px;
+    border: 0;
+    background: transparent;
     color: #5f6b7f;
     font-size: 0.77rem;
     font-weight: 700;
@@ -984,8 +991,17 @@ button {
     }
 
     .app-header {
-        grid-template-columns: 38px 62px minmax(0, 1fr) 54px;
-        gap: 10px;
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 12px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .desktop-nav,
+    .header-date {
+        display: none;
     }
 
     .brand-copy h1 {
@@ -1049,12 +1065,7 @@ button {
         font-size: 0.92rem;
     }
 
-    .search-row {
-        grid-template-columns: minmax(0, 1fr) 62px;
-    }
-
-    .search-box,
-    .filter-button {
+    .search-box {
         min-height: 62px;
     }
 
@@ -1063,7 +1074,7 @@ button {
     }
 
     .vehicle-card {
-        grid-template-columns: 78px minmax(0, 1fr) 16px;
+        grid-template-columns: 78px minmax(0, 1fr);
         gap: 12px;
         min-height: 116px;
         padding: 16px;
@@ -1091,6 +1102,26 @@ button {
     .vehicle-main small {
         display: flex;
         margin-right: 0;
+    }
+
+    .vehicle-list {
+        grid-template-columns: 1fr;
+    }
+
+    .vehicle-actions a,
+    .vehicle-actions button {
+        width: 34px;
+        min-width: 34px;
+        padding: 0;
+        border-radius: 50%;
+    }
+
+    .vehicle-actions span {
+        display: none;
+    }
+
+    .bottom-nav {
+        display: grid;
     }
 
     .dashboard-grid,
@@ -1126,7 +1157,7 @@ button {
     }
 
     .app-header {
-        grid-template-columns: 32px 54px minmax(0, 1fr) 48px;
+        grid-template-columns: 52px minmax(0, 1fr);
         margin-bottom: 28px;
     }
 
@@ -1134,11 +1165,6 @@ button {
         width: 52px;
         height: 52px;
         font-size: 2.2rem;
-    }
-
-    .profile-pill {
-        width: 48px;
-        height: 48px;
     }
 
     .summary-grid {
@@ -1173,17 +1199,13 @@ button {
         grid-template-columns: minmax(0, 1fr) auto;
     }
 
-    .date-chip strong {
-        display: none;
-    }
-
-    .list-heading button {
+    .list-heading span {
         padding: 0 12px;
         font-size: 0.82rem;
     }
 
     .vehicle-card {
-        grid-template-columns: 64px minmax(0, 1fr) 12px;
+        grid-template-columns: 64px minmax(0, 1fr);
         padding: 14px 12px;
     }
 
@@ -1194,6 +1216,7 @@ button {
 
     .vehicle-actions a,
     .vehicle-actions button {
+        min-width: 31px;
         width: 31px;
         height: 31px;
     }

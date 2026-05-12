@@ -157,11 +157,10 @@ foreach ($veiculos as $veiculo) {
             <h2>Olá, Gustavo! <span>👋</span></h2>
             <p>Aqui está o resumo de hoje</p>
         </div>
-        <button class="date-chip" type="button">
+        <div class="date-chip">
             <i class="fas fa-calendar-day"></i>
             <strong><?php echo date('d/m/Y'); ?></strong>
-            <i class="fas fa-chevron-down"></i>
-        </button>
+        </div>
     </div>
 
     <div class="summary-grid">
@@ -207,19 +206,16 @@ foreach ($veiculos as $veiculo) {
         <i class="fas fa-chevron-right"></i>
     </button>
 
-    <div class="search-row">
+    <div class="search-row compact">
         <label class="search-box">
             <i class="fas fa-magnifying-glass"></i>
             <input id="searchInput" type="text" placeholder="Buscar por placa, proprietário ou condutor" />
         </label>
-        <button class="filter-button" type="button" aria-label="Filtrar">
-            <i class="fas fa-filter"></i>
-        </button>
     </div>
 
     <div class="list-heading">
         <h3><i class="fas fa-car-side"></i> Lista de veículos</h3>
-        <button type="button"><i class="fas fa-arrow-down-wide-short"></i> Ordenar</button>
+        <span><?php echo count($veiculos); ?> registros</span>
     </div>
 
     <div class="vehicle-list" id="vehiclesList">
@@ -255,18 +251,15 @@ foreach ($veiculos as $veiculo) {
                     <small><i class="fas fa-location-dot"></i> <?php echo sanitize($veiculo['cidade']); ?></small>
                     <small><i class="fas fa-calendar-day"></i> <?php echo formatarDataHora($veiculo['status_data']); ?></small>
                     <div class="vehicle-actions">
-                        <a href="editar.php?id=<?php echo $veiculo['id']; ?>" title="Editar"><i class="fas fa-pen"></i></a>
-                        <button type="button" class="status-btn" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Trocar status"><i class="fas fa-right-left"></i></button>
-                        <a href="historico.php?id=<?php echo $veiculo['id']; ?>" title="Histórico"><i class="fas fa-clock-rotate-left"></i></a>
+                        <a href="editar.php?id=<?php echo $veiculo['id']; ?>" title="Editar"><i class="fas fa-pen"></i><span>Editar</span></a>
+                        <button type="button" class="status-btn" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Trocar status"><i class="fas fa-right-left"></i><span>Status</span></button>
+                        <a href="historico.php?id=<?php echo $veiculo['id']; ?>" title="Histórico"><i class="fas fa-clock-rotate-left"></i><span>Historico</span></a>
                         <?php if ($veiculo['tipo_veiculo'] === 'Moto' && normalizarTexto($veiculo['status_atual']) === 'Em Oficina'): ?>
-                            <button type="button" class="budget-btn" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Orçamento"><i class="fas fa-file-invoice-dollar"></i></button>
+                            <button type="button" class="budget-btn" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Orçamento"><i class="fas fa-file-invoice-dollar"></i><span>Orcamento</span></button>
                         <?php endif; ?>
-                        <button type="button" class="delete-btn danger-action" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Excluir"><i class="fas fa-trash"></i></button>
+                        <button type="button" class="delete-btn danger-action" data-id="<?php echo $veiculo['id']; ?>" data-placa="<?php echo sanitize($veiculo['placa']); ?>" title="Excluir"><i class="fas fa-trash"></i><span>Excluir</span></button>
                     </div>
                 </div>
-                <a class="card-chevron" href="editar.php?id=<?php echo $veiculo['id']; ?>" aria-label="Editar veículo">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
             </article>
         <?php endforeach; ?>
     </div>
