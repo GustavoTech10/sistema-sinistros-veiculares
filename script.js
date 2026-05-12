@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const vehiclesList = document.getElementById('vehiclesList');
     const cadastroModal = document.getElementById('cadastroModalOverlay');
     const editarModal = document.getElementById('editarModalOverlay');
+    const dashboardListModal = document.getElementById('dashboardListModal');
+    const dashboardListTitle = document.getElementById('dashboardListTitle');
     const statusModal = document.getElementById('statusModalOverlay');
     const budgetModal = document.getElementById('budgetModalOverlay');
     const registerButtons = document.querySelectorAll('.open-register-modal');
     const editButtons = document.querySelectorAll('.edit-btn');
+    const dashboardListButtons = document.querySelectorAll('.dashboard-list-btn');
     const statusButtons = document.querySelectorAll('.status-btn');
     const budgetButtons = document.querySelectorAll('.budget-btn');
     const deleteButtons = document.querySelectorAll('.delete-btn');
@@ -71,6 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    dashboardListButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.target);
+            document.querySelectorAll('.dashboard-list-content').forEach(content => {
+                content.hidden = true;
+            });
+            if (target) {
+                target.hidden = false;
+                if (dashboardListTitle) {
+                    dashboardListTitle.textContent = target.dataset.title || 'Lista do dashboard';
+                }
+            }
+            openModal(dashboardListModal);
+        });
+    });
+
     statusButtons.forEach(button => {
         button.addEventListener('click', () => {
             statusVeiculoId.value = button.dataset.id;
@@ -97,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    [cadastroModal, editarModal, statusModal, budgetModal].forEach(modal => {
+    [cadastroModal, editarModal, dashboardListModal, statusModal, budgetModal].forEach(modal => {
         if (!modal) return;
         modal.addEventListener('click', (event) => {
             if (event.target === modal) closeModal(modal);

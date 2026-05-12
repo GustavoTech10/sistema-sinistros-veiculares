@@ -7,6 +7,16 @@ function sanitize($value) {
     return htmlspecialchars(trim((string)$value), ENT_QUOTES, 'UTF-8');
 }
 
+function matchText($value, array $needles) {
+    $value = strtolower((string)$value);
+    foreach ($needles as $needle) {
+        if (strpos($value, strtolower($needle)) !== false) {
+            return true;
+        }
+    }
+    return false;
+}
+
 $registerErrors = [];
 $registerSuccess = '';
 $editErrors = [];
@@ -204,26 +214,30 @@ function statusBadge($status) {
 }
 
 $resumo = [
-    'roubo' => 0,
-    'furto' => 0,
+    'roubo_furto' => 0,
     'apropriacao' => 0,
-    'recuperadas' => 0,
+    'colisao' => 0,
+    'oficina' => 0,
+    'entregues' => 0,
 ];
 
 foreach ($veiculos as $veiculo) {
     $processo = normalizarTexto($veiculo['processo']);
     $status = normalizarTexto($veiculo['status_atual']);
-    if ($processo === 'Roubo/Furto') {
-        $resumo['roubo']++;
+    if (matchText($processo, ['roubo', 'furto'])) {
+        $resumo['roubo_furto']++;
     }
-    if (stripos($processo, 'furto') !== false) {
-        $resumo['furto']++;
-    }
-    if (stripos($processo, 'Apropria') !== false) {
+    if (matchText($processo, ['apropria'])) {
         $resumo['apropriacao']++;
     }
-    if ($status === 'Entregue' || $status === 'Recuperada') {
-        $resumo['recuperadas']++;
+    if (matchText($processo, ['colis'])) {
+        $resumo['colisao']++;
+    }
+    if (matchText($status, ['oficina'])) {
+        $resumo['oficina']++;
+    }
+    if (matchText($status, ['entregue', 'finalizada', 'finalizado', 'recuperada'])) {
+        $resumo['entregues']++;
     }
 }
 ?>
@@ -238,14 +252,8 @@ foreach ($veiculos as $veiculo) {
     <div class="summary-grid">
         <article class="summary-card danger">
             <span class="summary-icon"><i class="fas fa-shield-halved"></i></span>
-            <strong><?php echo $resumo['roubo']; ?></strong>
-            <p>Roubadas</p>
-            <em></em>
-        </article>
-        <article class="summary-card orange">
-            <span class="summary-icon"><i class="fas fa-car-burst"></i></span>
-            <strong><?php echo $resumo['furto']; ?></strong>
-            <p>Furtos</p>
+            <strong><?php echo $resumo['roubo_furto']; ?></strong>
+            <p>Roubo/Furto</p>
             <em></em>
         </article>
         <article class="summary-card purple">
@@ -254,10 +262,22 @@ foreach ($veiculos as $veiculo) {
             <p>Apropriação</p>
             <em></em>
         </article>
+        <article class="summary-card blue">
+            <span class="summary-icon"><i class="fas fa-car-burst"></i></span>
+            <strong><?php echo $resumo['colisao']; ?></strong>
+            <p>Colisão</p>
+            <em></em>
+        </article>
+        <article class="summary-card orange">
+            <span class="summary-icon"><i class="fas fa-screwdriver-wrench"></i></span>
+            <strong><?php echo $resumo['oficina']; ?></strong>
+            <p>Em Oficina</p>
+            <em></em>
+        </article>
         <article class="summary-card green">
             <span class="summary-icon"><i class="fas fa-check"></i></span>
-            <strong><?php echo $resumo['recuperadas']; ?></strong>
-            <p>Recuperadas</p>
+            <strong><?php echo $resumo['entregues']; ?></strong>
+            <p>Entregue/Finalizada</p>
             <em></em>
         </article>
     </div>
