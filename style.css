@@ -286,6 +286,9 @@ button {
     background: linear-gradient(135deg, #0869ff, #034ed0);
     color: #fff;
     box-shadow: 0 18px 32px rgba(7, 91, 232, 0.24);
+    border: 0;
+    width: 100%;
+    text-align: left;
 }
 
 .create-card span {
@@ -310,6 +313,23 @@ button {
 
 .create-card > i {
     font-size: 1.5rem;
+}
+
+.registration-feedback {
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    border: 1px solid #b9f0ce;
+    background: #ddf7e8;
+    color: #0f6f3a;
+    font-weight: 800;
+}
+
+.registration-feedback i {
+    font-size: 1.25rem;
 }
 
 .search-row {
@@ -575,6 +595,11 @@ button {
     gap: 18px;
 }
 
+.modal-form {
+    display: grid;
+    gap: 16px;
+}
+
 .form-grid label,
 .modal-form label {
     display: grid;
@@ -823,6 +848,10 @@ button {
     background: rgba(9, 13, 36, 0.58);
 }
 
+.modal-overlay.modal-open {
+    display: flex;
+}
+
 .modal-window {
     position: relative;
     width: min(680px, 100%);
@@ -830,6 +859,59 @@ button {
     border-radius: var(--radius);
     background: #fff;
     box-shadow: 0 30px 80px rgba(9, 13, 36, 0.26);
+}
+
+.register-modal {
+    overflow: hidden;
+}
+
+.register-modal::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 8px;
+    background: linear-gradient(90deg, #075be8, #17a956);
+}
+
+.register-header {
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.register-header h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.45rem;
+}
+
+.register-header p {
+    margin: 5px 44px 0 0;
+    color: var(--muted);
+}
+
+.modal-badge {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #e7f0ff;
+    color: var(--primary);
+    font-size: 1.35rem;
+}
+
+.register-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.register-full {
+    grid-column: span 2;
+}
+
+.modal-alert {
+    margin-top: 0;
 }
 
 .modal-close {
@@ -1013,8 +1095,13 @@ button {
 
     .dashboard-grid,
     .dashboard-panel,
-    .form-grid {
+    .form-grid,
+    .register-form {
         grid-template-columns: 1fr;
+    }
+
+    .register-full {
+        grid-column: span 1;
     }
 
     .form-actions,

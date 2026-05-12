@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const vehiclesTable = document.getElementById('vehiclesTable');
     const vehiclesList = document.getElementById('vehiclesList');
+    const cadastroModal = document.getElementById('cadastroModalOverlay');
     const statusModal = document.getElementById('statusModalOverlay');
     const budgetModal = document.getElementById('budgetModalOverlay');
+    const registerButtons = document.querySelectorAll('.open-register-modal');
     const statusButtons = document.querySelectorAll('.status-btn');
     const budgetButtons = document.querySelectorAll('.budget-btn');
     const deleteButtons = document.querySelectorAll('.delete-btn');
@@ -41,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.setAttribute('aria-hidden', 'true');
     };
 
+    registerButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            openModal(cadastroModal);
+        });
+    });
+
     statusButtons.forEach(button => {
         button.addEventListener('click', () => {
             statusVeiculoId.value = button.dataset.id;
@@ -67,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    [statusModal, budgetModal].forEach(modal => {
+    [cadastroModal, statusModal, budgetModal].forEach(modal => {
         if (!modal) return;
         modal.addEventListener('click', (event) => {
             if (event.target === modal) closeModal(modal);
